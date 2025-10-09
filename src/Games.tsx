@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getGames } from "./services/games";
+import { useEffect } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 type Game = {
   id: number;
@@ -9,15 +8,19 @@ type Game = {
 };
 
 function Games() {
-  const [games, setGames] = useState<Game[]>([]);
+  //const [games, setGames] = useState<Game[]>([]);
+  const games = useLoaderData() as Game[];
+
+  console.log(useLoaderData());
+  console.log(games);
 
   useEffect(() => {
     //monta el componente en la pagina
     document.body.style.backgroundColor = "#407dc4ff";
 
-    getGames().then((gamesData) => {
-      setGames(gamesData as Game[]);
-    });
+    // getGames().then((gamesData) => {
+    //   setGames(gamesData as Game[]);
+    // });
 
     //desmonta el componente de la pagina
     return () => {
@@ -31,7 +34,7 @@ function Games() {
       <p>Shows a list of games</p>
 
       <ul>
-        {games.map((game) => (
+        {games?.map((game) => (
           <li key={game.id}>
             {game.name}:{game.description}
           </li>

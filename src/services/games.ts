@@ -10,7 +10,7 @@ export function getGames() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(games);
-    }, 800);
+    }, 0);
   });
 }
 
