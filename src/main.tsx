@@ -6,30 +6,35 @@ import Games from "./Games.tsx";
 import Companies from "./Companies.tsx";
 import Error from "./Error.tsx";
 import { getGames } from "./services/games.ts";
+import GameDetail from "./GameDetail.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    Component: App,
   },
   {
     path: "/login",
-    element: <Login />,
+    Component: Login,
   },
   {
     path: "/games",
-    element: <Games />,
+    Component: Games,
     loader: async () => {
       return await getGames();
     },
   },
   {
+    path: "/games/:gameId",
+    Component: GameDetail,
+  },
+  {
     path: "/companies",
-    element: <Companies />,
+    Component: Companies,
   },
   {
     path: "*",
-    element: <Error />,
+    Component: Error,
   },
 ]);
 

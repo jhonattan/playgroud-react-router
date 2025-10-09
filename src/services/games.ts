@@ -24,6 +24,6 @@ export function getGame(id: number) {
       } else {
         reject(new Error(`Game with id ${id} not found`));
       }
-    }, 800);
+    }, 0);
   });
 }

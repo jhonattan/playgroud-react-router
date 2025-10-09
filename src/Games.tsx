@@ -11,9 +11,6 @@ function Games() {
   //const [games, setGames] = useState<Game[]>([]);
   const games = useLoaderData() as Game[];
 
-  console.log(useLoaderData());
-  console.log(games);
-
   useEffect(() => {
     //monta el componente en la pagina
     document.body.style.backgroundColor = "#407dc4ff";
@@ -36,7 +33,7 @@ function Games() {
       <ul>
         {games?.map((game) => (
           <li key={game.id}>
-            {game.name}:{game.description}
+            <Link to={`/games/${game.id}`}>{game.name}</Link>
           </li>
         ))}
       </ul>
