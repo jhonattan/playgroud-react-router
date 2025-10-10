@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { getGame } from "./services/games";
 
 type Game = {
@@ -11,35 +11,42 @@ type Game = {
 function GameDetail() {
   const { gameId } = useParams<{ gameId: string }>();
 
-  console.log("gameId", gameId);
+  const location = useLocation();
 
   const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
-    if (gameId) {
+    const updatedGame = location.state?.updatedGame;
+
+    if (updatedGame) {
+      setGame(updatedGame);
+      return;
+    } else if (gameId) {
       getGame(parseInt(gameId)).then((gameData) => {
         setGame(gameData as Game);
       });
     }
-  }, [gameId]);
+  }, [gameId, location.state]);
+
+  if (!game) return <div>Game not found</div>;
 
   return (
     <div>
       <h1>Games detail</h1>
-      <p>Details for game {game?.name}</p>
+      <p>Details for game {game.name}</p>
       <ul>
         <li>
-          <strong>Id:</strong> {game?.id}
+          <strong>Id:</strong> {game.id}
         </li>
         <li>
-          <strong>Name:</strong> {game?.name}
+          <strong>Name:</strong> {game.name}
         </li>
         <li>
-          <strong>Description:</strong> {game?.description}
+          <strong>Description:</strong> {game.description}
         </li>
       </ul>
 
-      <Link to="/">Home</Link>
+      <Link to={`/games/${game.id}/edit`}>Edit</Link>
     </div>
   );
 }

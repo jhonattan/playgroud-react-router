@@ -7,6 +7,7 @@ import Companies from "./Companies.tsx";
 import Error from "./Error.tsx";
 import { getGames } from "./services/games.ts";
 import GameDetail from "./GameDetail.tsx";
+import GameEdit from "./GameEdit.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +24,16 @@ const router = createBrowserRouter([
     loader: async () => {
       return await getGames();
     },
-  },
-  {
-    path: "/games/:gameId",
-    Component: GameDetail,
+    children: [
+      {
+        path: ":gameId",
+        Component: GameDetail,
+      },
+      {
+        path: ":gameId/edit",
+        Component: GameEdit,
+      },
+    ],
   },
   {
     path: "/companies",

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, Outlet, useLoaderData } from "react-router-dom";
 
 type Game = {
   id: number;
@@ -37,6 +37,8 @@ function Games() {
           </li>
         ))}
       </ul>
+
+      <Outlet />
 
       <Link to="/">Home</Link>
     </div>
