@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { getGame } from "./services/games";
+import { useEffect } from "react";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigation,
+} from "react-router-dom";
 
 type Game = {
   id: number;
@@ -9,44 +13,48 @@ type Game = {
 };
 
 function GameDetail() {
-  const { gameId } = useParams<{ gameId: string }>();
-
   const location = useLocation();
 
-  const [game, setGame] = useState<Game | null>(null);
+  const game = useLoaderData() as Game;
+  const navigation = useNavigation();
+
+  console.log(navigation.state);
 
   useEffect(() => {
     const updatedGame = location.state?.updatedGame;
 
     if (updatedGame) {
-      setGame(updatedGame);
-      return;
-    } else if (gameId) {
-      getGame(parseInt(gameId)).then((gameData) => {
-        setGame(gameData as Game);
-      });
+      game.name = updatedGame.name;
+      game.description = updatedGame.description;
     }
-  }, [gameId, location.state]);
+  }, [location.state]);
 
   if (!game) return <div>Game not found</div>;
+
+  if (navigation.state === "loading") {
+    return <div>Loading Game...</div>;
+  }
 
   return (
     <div>
       <h1>Games detail</h1>
       <p>Details for game {game.name}</p>
-      <ul>
-        <li>
-          <strong>Id:</strong> {game.id}
-        </li>
-        <li>
-          <strong>Name:</strong> {game.name}
-        </li>
-        <li>
-          <strong>Description:</strong> {game.description}
-        </li>
-      </ul>
 
-      <Link to={`/games/${game.id}/edit`}>Edit</Link>
+      <>
+        <ul>
+          <li>
+            <strong>Id:</strong> {game.id}
+          </li>
+          <li>
+            <strong>Name:</strong> {game.name}
+          </li>
+          <li>
+            <strong>Description:</strong> {game.description}
+          </li>
+        </ul>
+
+        <Link to={`/games/${game.id}/edit`}>Edit</Link>
+      </>
     </div>
   );
 }

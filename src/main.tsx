@@ -5,9 +5,11 @@ import Login from "./Login.tsx";
 import Games from "./Games.tsx";
 import Companies from "./Companies.tsx";
 import Error from "./Error.tsx";
-import { getGames } from "./services/games.ts";
+import { getGame, getGames } from "./services/games.ts";
 import GameDetail from "./GameDetail.tsx";
 import GameEdit from "./GameEdit.tsx";
+
+//import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,9 @@ const router = createBrowserRouter([
       {
         path: ":gameId",
         Component: GameDetail,
+        loader: async ({ params }) => {
+          return await getGame(parseInt(params.gameId!));
+        },
       },
       {
         path: ":gameId/edit",

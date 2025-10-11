@@ -1,5 +1,13 @@
 import { useEffect } from "react";
-import { Link, Outlet, useLoaderData } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation,
+} from "react-router-dom";
+
+import s from "./games.module.css";
 
 type Game = {
   id: number;
@@ -11,19 +19,29 @@ function Games() {
   //const [games, setGames] = useState<Game[]>([]);
   const games = useLoaderData() as Game[];
 
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   getGames().then((gamesData) => {
+  //     setGames(gamesData as Game[]);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    //monta el componente en la pagina
     document.body.style.backgroundColor = "#407dc4ff";
 
-    // getGames().then((gamesData) => {
-    //   setGames(gamesData as Game[]);
-    // });
+    const updatedGame = location.state?.updatedGame;
 
-    //desmonta el componente de la pagina
+    if (updatedGame) {
+      games.map((game) =>
+        game.id === updatedGame.id ? (game.name = updatedGame.name) : game
+      );
+    }
+
     return () => {
       document.body.style.backgroundColor = "";
     };
-  }, []);
+  }, [location.state]);
 
   return (
     <div>
@@ -31,9 +49,14 @@ function Games() {
       <p>Shows a list of games</p>
 
       <ul>
-        {games?.map((game) => (
+        {games.map((game) => (
           <li key={game.id}>
-            <Link to={`/games/${game.id}`}>{game.name}</Link>
+            <NavLink
+              className={({ isActive }) => (isActive ? s.active : "")}
+              to={`/games/${game.id}`}
+            >
+              {game.name}
+            </NavLink>
           </li>
         ))}
       </ul>

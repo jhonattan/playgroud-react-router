@@ -41,13 +41,15 @@ function GameEdit() {
     }
   };
 
+  if (!game) return <div>Game not found</div>;
+
   return (
     <div>
       <h1>Edit Game</h1>
       <div>
         <label>
           <strong>Id:</strong>
-          <input type="text" value={game?.id} disabled />
+          <input type="text" value={game.id} disabled />
         </label>
       </div>
       <div>
