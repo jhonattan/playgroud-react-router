@@ -10,7 +10,7 @@ export function getCompanies() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(companies);
-    }, 0);
+    }, 1000);
   });
 }
 

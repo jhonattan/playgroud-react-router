@@ -1,40 +1,59 @@
+import { getCompanies } from "./services/companies";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import * as React from "react"
-import { NavLink } from "react-router-dom";
+import style from "./company.module.css"
 
-type Company = {
-  id: number,
-  name: string,
-  description: string,
+type Companie = {
+    id: number,
+    name: string,
+    description: string,
 }
 
-function Companies() {
-  const [companie, setCompanie] = React.useState<Company[]>([])
+export default function Companie() {
 
+    // const companies = useLoaderData() as Companie[];
 
-  React.useEffect(() => {
-    
-    document.body.style.backgroundColor = "#4e5358ff";
+    const [companies, setCompanies] = React.useState<Companie[]>([]);
 
-  
+    const location = useLocation()
+
+    React.useEffect(()=>{
+        getCompanies().then((companyData)=>{
+            setCompanies(companyData as Companie[])
+        })
+    }, [])
+
+    React.useEffect(() => {
+    document.body.style.backgroundColor = "#64b0fcff";
+
+    const updatedCompany = location.state?.updatedCompany;
+
+    if(updatedCompany){
+        setCompanies((prevCompany)=> prevCompany.map((companie)=> companie.id === updatedCompany.id ? updatedCompany : companie)
+    );
+    }
+
     return () => {
       document.body.style.backgroundColor = "";
     };
-  }, [companie]);
+  }, [location.state]);
 
-  return (
-    <>
-    <h1>Hola soy companie</h1>
+
+    return (
+        <>
+        <h1>Hola soy companie</h1>
         <NavLink to={"/"}>Regresar</NavLink>
                 <ul>
-                    {/* {companies.map((company)=>(
+                    {companies.map((company)=>(
                         <li key={company.id}>
                             <NavLink className={({isActive})=>(isActive ? style.active : "")} to={`/companies/${company.id}`}>{company.name}</NavLink>
                             <p>{company.description}</p>
                         </li>
-                    ))} */}
+                    ))}
                 </ul>
-    </>
-  );
+            <div id="uwu">
+                <Outlet />
+            </div>
+        </>
+    )
 }
-
-export default Companies;
