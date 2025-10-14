@@ -1,0 +1,8 @@
+import { redirect } from "react-router-dom";
+import { deleteGame } from "./services/games";
+
+export async function action({ params }) {
+  const gameId = Number(params.gameId);
+  await deleteGame(gameId);
+  return redirect("/games");
+}

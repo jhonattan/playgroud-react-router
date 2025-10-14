@@ -77,6 +77,10 @@ function GameEdit() {
         <button type="button" onClick={handleEdit}>
           Edit
         </button>
+
+        <button type="button" onClick={() => navigate(-1)}>
+          Cancel
+        </button>
       </div>
     </div>
   );

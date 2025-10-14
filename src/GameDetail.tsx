@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import {
+  Form,
   Link,
   useLoaderData,
   useLocation,
@@ -54,6 +55,10 @@ function GameDetail() {
         </ul>
 
         <Link to={`/games/${game.id}/edit`}>Edit</Link>
+
+        <Form method="post" action="destroy">
+          <button type="submit">Delete</button>
+        </Form>
       </>
     </div>
   );

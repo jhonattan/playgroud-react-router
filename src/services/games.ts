@@ -27,3 +27,17 @@ export function getGame(id: number) {
     }, 3000);
   });
 }
+
+export function deleteGame(id: number) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const gameIndex = games.findIndex((game) => game.id === id);
+      if (gameIndex !== -1) {
+        games.splice(gameIndex, 1);
+        resolve(games);
+      } else {
+        reject(new Error(`Game with id ${id} not found`));
+      }
+    }, 800);
+  });
+}

@@ -16,16 +16,9 @@ type Game = {
 };
 
 function Games() {
-  //const [games, setGames] = useState<Game[]>([]);
   const games = useLoaderData() as Game[];
 
   const location = useLocation();
-
-  // useEffect(() => {
-  //   getGames().then((gamesData) => {
-  //     setGames(gamesData as Game[]);
-  //   });
-  // }, []);
 
   useEffect(() => {
     document.body.style.backgroundColor = "#407dc4ff";

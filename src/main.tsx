@@ -1,5 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useActionData,
+} from "react-router-dom";
 import App from "./App.tsx";
 import Login from "./Login.tsx";
 import Games from "./Games.tsx";
@@ -8,6 +12,7 @@ import Error from "./Error.tsx";
 import { getGame, getGames } from "./services/games.ts";
 import GameDetail from "./GameDetail.tsx";
 import GameEdit from "./GameEdit.tsx";
+import { action as actionDestroy } from "./GameDestroy.tsx";
 
 //import "./index.css";
 
@@ -37,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: ":gameId/edit",
         Component: GameEdit,
+      },
+      {
+        path: ":gameId/destroy",
+        action: actionDestroy,
       },
     ],
   },
