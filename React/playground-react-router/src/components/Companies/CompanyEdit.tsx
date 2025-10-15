@@ -43,7 +43,7 @@ function CompanyEdit() {
   }
 
   React.useEffect(() => {
-    if (updatedCompany) localStorage.setItem(`${updatedCompany.id}Company`, JSON.stringify(updatedCompany))
+    if (updatedCompany) localStorage.setItem(`${updatedCompany.id}EditedCompany`, JSON.stringify(updatedCompany))
   }, [updatedCompany])
 
   if (!company) return
