@@ -1,6 +1,18 @@
+.link {
+  border-radius: 6px;
+  text-decoration: wavy underline rgb(255, 0, 136);
+}
+
 .active {
   border: 2px solid blueviolet;
   box-shadow: 0 0 10px blueviolet;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.pending {
+  border: 2px solid rgb(41, 226, 81);
+  box-shadow: 0 0 10px rgb(43, 226, 98);
   border-radius: 5px;
   text-decoration: none;
 }

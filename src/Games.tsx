@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import s from "./games.module.css";
+import clsx from "clsx";
 
 type Game = {
   id: number;
@@ -45,7 +46,11 @@ function Games() {
         {games.map((game) => (
           <li key={game.id}>
             <NavLink
-              className={({ isActive }) => (isActive ? s.active : "")}
+              // className={({ isActive }) => (isActive ? s.active : "")}
+              className={({ isActive, isPending }) =>
+                clsx(s.link, { [s.active]: isActive, [s.pending]: isPending })
+              }
+              //className={(...props) => console.log(props)}
               to={`/games/${game.id}`}
             >
               {game.name}
