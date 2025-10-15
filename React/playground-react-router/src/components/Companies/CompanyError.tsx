@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom"
+import * as ReactRouterDOM from "react-router-dom"
+import styles from "../styles.module.css"
 
 function CompanyError() {
-  const {companyId} = useParams<{ companyId: string }>()
+  const {companyId} = ReactRouterDOM.useParams<{ companyId: string }>()
 
   return (
     <div>
-      <h1>Company not found</h1>
-      <p>We couldn’t find any game with the ID <strong>{companyId}</strong>: Error 404 - Not found</p>
+      <h1 className={styles.subtitle}>Company not found</h1>
+      <p className={styles.description}>We couldn’t find any game with the ID <strong>{companyId}</strong>: Error 404 - Not found</p>
     </div>
   )
 }
