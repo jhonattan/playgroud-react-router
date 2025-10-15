@@ -1,6 +1,8 @@
 import React from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import * as ReactRouterDOM from "react-router-dom"
 import { getStoredData } from "../../services/storedData";
+import styles from "../styles.module.css"
 
 type Company = {
   id: number,
@@ -9,7 +11,7 @@ type Company = {
 }
 
 function CompanyDetails() {
-  const company = useLoaderData() as Company
+  const company = ReactRouterDOM.useLoaderData() as Company
   const [updatedCompany, setUpdatedCompany] = React.useState<Company | null>(null)
 
   React.useEffect(() => {
@@ -23,14 +25,16 @@ function CompanyDetails() {
 
   return (
     <div>
-      <h1>Company Page</h1>
-      <ul>
-        <li><strong>Id:</strong> {company.id}</li>
-        <li><strong>Name:</strong> {updatedCompany?.name}</li>
-        <li><strong>Description:</strong> {updatedCompany?.description}</li>
+      <h1 className={styles.subtitle}>Company Page</h1>
+      <ul className={styles.list}>
+        <li className={styles.item}><strong>Id:</strong> {company.id}</li>
+        <li className={styles.item}><strong>Name:</strong> {updatedCompany?.name}</li>
+        <li className={styles.item}><strong>Description:</strong> {updatedCompany?.description}</li>
       </ul>
 
-      <Link to={"edit"}>Edit</Link>
+      <div className={styles.link__container}>
+        <Link className={styles.link} to={"edit"}>Edit</Link>
+      </div>
     </div>
   )
 }

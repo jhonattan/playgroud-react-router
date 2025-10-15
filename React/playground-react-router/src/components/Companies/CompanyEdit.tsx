@@ -1,6 +1,7 @@
-import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import React, { type FormEvent } from "react";
+import * as ReactRouterDOM from "react-router-dom"
 import { editCompany } from "../../services/companies";
+import styles from "../styles.module.css"
 
 type Company = {
   id: number;
@@ -9,9 +10,9 @@ type Company = {
 };
 
 function CompanyEdit() {
-  const company = useLoaderData() as Company;
+  const company = ReactRouterDOM.useLoaderData() as Company;
 
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
 
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -24,7 +25,9 @@ function CompanyEdit() {
     }
   }, [company]);
 
-  function handleEdit() {
+  function handleEdit(event: FormEvent) {
+    event.preventDefault()
+
     if (company) {
       const updatedCompany = {
         ...company,
@@ -47,21 +50,23 @@ function CompanyEdit() {
 
   return (
     <div>
-      <h1>Edit Company</h1>
-      <div>
-        <label>
+      <h1 className={styles.subtitle}>Edit Company</h1>
+      <form className={styles.form}>
+        <label className={styles.label}>
           <strong>Name:</strong>
           <input
             type="text"
+            className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
 
-        <label>
+        <label className={styles.label}>
           <strong>Description:</strong>
           <textarea
             value={description}
+            className={styles.textarea}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
             cols={40}
@@ -69,8 +74,8 @@ function CompanyEdit() {
           />
         </label>
 
-        <button type="button" onClick={handleEdit}>Edit</button>
-      </div>
+        <button className={styles.button} type="button" onClick={handleEdit}>Edit</button>
+      </form>
     </div>
   );
 }
