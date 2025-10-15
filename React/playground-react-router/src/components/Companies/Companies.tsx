@@ -1,7 +1,6 @@
 import * as ReactRouterDOM from "react-router-dom"
 import { NavLink, Link, Outlet } from "react-router-dom"
-import { editCompany } from "../../services/companies"
-import { getStoredData } from "../../services/storedData"
+import { editCompany, getStoredCompany } from "../../services/companies"
 import styles from "../styles.module.css"
 import React from "react"
 
@@ -20,7 +19,7 @@ function Companies() {
     if (!companies) return
 
     companies.map(company => {
-      const storedUpdatedCompany = getStoredData(company.id, "Company")
+      const storedUpdatedCompany = getStoredCompany(company.id, "Company")
 
       if (storedUpdatedCompany) {
         const updatedCompany = {...company, ...storedUpdatedCompany}
@@ -35,7 +34,7 @@ function Companies() {
       <p className={styles.description}>Shows a list of companies</p>
       <ul className={styles.list}>
         {companies?.map((company: Company) => {
-          const storedUpdatedCompany = getStoredData(company.id, "Company")
+          const storedUpdatedCompany = getStoredCompany(company.id, "EditedCompany")
           
           const updatedCompany = storedUpdatedCompany ? {...company, ...storedUpdatedCompany} : company
 

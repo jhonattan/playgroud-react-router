@@ -1,0 +1,17 @@
+{
+  "games": [
+    { "id": 1, "name": "Game 1", "description": "Description for Game 1" },
+    { "id": 2, "name": "Game 2", "description": "Description for Game 2" },
+    { "id": 3, "name": "Game 3", "description": "Description for Game 3" },
+    { "id": 4, "name": "Game 4", "description": "Description for Game 4" },
+    { "id": 5, "name": "Game 5", "description": "Description for Game 5" }
+  ],
+  
+  "companies": [
+    { "id": 1, "name": "Company 1", "description": "Description for Company 1" },
+    { "id": 2, "name": "Company 2", "description": "Description for Company 2" },
+    { "id": 3, "name": "Company 3", "description": "Description for Company 3" },
+    { "id": 4, "name": "Company 4", "description": "Description for Company 4" },
+    { "id": 5, "name": "Company 5", "description": "Description for Company 5" }
+  ]
+}

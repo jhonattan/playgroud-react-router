@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 import * as ReactRouterDOM from "react-router-dom"
-import { getStoredData } from "../../services/storedData";
+import { getStoredCompany } from "../../services/companies";
 import styles from "../styles.module.css"
 
 type Company = {
@@ -15,7 +15,7 @@ function CompanyDetails() {
   const [updatedCompany, setUpdatedCompany] = React.useState<Company | null>(null)
 
   React.useEffect(() => {
-    const storedUpdatedCompany = getStoredData(company.id, "Company")
+    const storedUpdatedCompany = getStoredCompany(company.id, "EditedCompany")
     const updatedCompany = storedUpdatedCompany ? { ...company, ...storedUpdatedCompany } : company
 
     setUpdatedCompany(updatedCompany)
@@ -34,6 +34,9 @@ function CompanyDetails() {
 
       <div className={styles.link__container}>
         <Link className={styles.link} to={"edit"}>Edit</Link>
+        <Form method="post" action="delete">
+          <button className={styles.button} type="submit">Delete</button>
+        </Form>
       </div>
     </div>
   )
